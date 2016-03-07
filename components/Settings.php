@@ -70,6 +70,7 @@ class Settings extends Component
     public function init()
     {
         parent::init();
+        $this->registerTranslations();
 
         $this->model = new $this->modelClass;
 
@@ -80,6 +81,22 @@ class Settings extends Component
             $this->frontCache = Yii::$app->get($this->frontCache, false);
         }
     }
+
+    /**
+     * Registers the translation files
+     */
+    protected function registerTranslations()
+    {
+        Yii::$app->i18n->translations['extensions/yii2-settings/*'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => '@vendor/pheme/yii2-settings/messages',
+            'fileMap' => [
+                'extensions/yii2-settings/settings' => 'settings.php',
+            ],
+        ];
+    }
+
 
     /**
      * Get's the value for the given key and section.
